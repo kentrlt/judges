@@ -1,34 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Envelope + Letter (Open/Close on Click)</title>
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Message</title>
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Nanum+Pen+Script" rel="stylesheet">
+  <style>
+    h1 {
+      font-family: "Indie Flower";
+    }
+
+    p {
+      text-indent: 30px;
+    }
+
+    h1 {
+      font-weight: 200;
+    }
+
+    body {
+      margin: 0px;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #fce4ec;
+      transition: background-color 2s;
+    }
+
+    .heart {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      transition: transform 2s;
+      z-index: 1;
+    }
+
+    .heart > img {
+      width: 50px;
+      height: auto;
+    }
+
+    .message {
+      padding: 20px;
+      font-family: "Nanum Pen Script";
+      background-color: #eee;
+      width: 300px;
+      height: 75%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      overflow: hidden;
+      animation-name: openmsg;
+      animation-duration: 2s;
+      animation-timing-function: linear;
+      animation-play-state: paused;
+      animation-fill-mode: forwards;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+      border-radius: 5px;
+    }
+
+    .heart > img:hover {
+      animation-name: beat;
+      animation-duration: 2s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-play-state: running;
+    }
+
+    #messageState {
+      display: none;
+    }
+
+    @keyframes beat {
+      0% {
+        width: 50px;
+      }
+      25% {
+        width: 58px;
+      }
+      30% {
+        width: 50px;
+      }
+      50% {
+        width: 45px;
+      }
+      60% {
+        width: 50px;
+      }
+      75% {
+        width: 58px;
+      }
+      100% {
+        width: 50px;
+      }
+    }
+
+    @keyframes openmsg {
+      0% {
+        height: 0px;
+        padding: 0px 20px;
+      }
+      100% {
+        height: 75%;
+        padding: 20px 20px;
+      }
+    }
+
+    @keyframes heartMove {
+      0% {
+        top: 50%;
+      }
+      100% {
+        top: 85%;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    .openNor {
+      animation-direction: normal;
+      animation-play-state: running;
+    }
+
+    .closeNor {
+      animation-direction: reverse;
+      animation-play-state: running;
+    }
+
+    .no-anim {
+      animation: none;
+    }
+
+    .closed {
+      height: 0px;
+      padding: 0px 20px;
+    }
+
+    .bottom {
+      bottom: 5px;
+    }
+
+    .openHer {
+      animation-name: heartMove;
+      animation-duration: 2s;
+      animation-timing-function: linear;
+      animation-play-state: running;
+      animation-fill-mode: forwards;
+    }
+
+    .closeHer {
+      animation-name: heartMove;
+      animation-duration: 2s;
+      animation-timing-function: linear;
+      animation-play-state: running;
+      animation-direction: reverse;
+      animation-fill-mode: forwards;
+    }
+
+    .beating > img {
+      animation-name: beat;
+      animation-duration: 2s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-play-state: running;
+    }
+
+    .openedHer {
+      top: 85%;
+      transform: translate(-50%, 0);
+    }
+
+    #scrollbar1::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    #scrollbar1::-webkit-scrollbar-track {
+      border-radius: 8px;
+      background-color: #e7e7e7;
+      border: 1px solid #cacaca;
+    }
+
+    #scrollbar1::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      background-color: #d55959;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="envelope-wrapper">
-            <div class="envelope">
-                <div class="letter">
-                    <div class="text">
-                        <strong>Dear Person.</strong>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                            Numquam labore omnis minus maiores laboriosam, facere in beatae esse. 
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="heart"></div>
-        </div>
+  <div class="container">
+    <label>
+      <div class="heart">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg" alt="Heart">
+      </div>
+      <input id="messageState" type="checkbox" />
+    </label>
+    <div class="message">
+      <div id="" style="overflow-y:scroll; overflow-x:hidden; height:5000px;">
+        <h1><b>Hello, my love!</b></h1>
+        <b>
+          <p>I have been fascinated with you from the first time I lay eyes on you, and my obsession has only grown stronger over time. I'm a happy man whenever I see you smile. I feel like I'm holding my entire universe while I'm holding you in my arms. Every moment feels even more precious when we are together. It is a blessing that I have a partner like you who looks out for me, loves me, and makes me feel like the happiest person alive.</p>
+
+          <p>Every day I get to spend with you is one more for which I am thankful. In ways I never thought imaginable, you've brightened my life. Your laugh and smile are the music to my soul's song and my favorite sounds. More than words can say or actions can prove, I love you. You are my heart's eternal home and my fantasy come true. With every breath, I promise to cherish and adore you, to support and uplift you, to be by your side through every challenge and triumph. My love for you is complete, enduring, and totally committed.</p>
+
+          <p>You are my inspiration; you make me want to be the best for you because you are the best for me. I am so delighted and glad, and I am filled with joy to be called your man — in other words, I’m satisfied. I love you, my baby. I will adore every bit of you because you deserve everything.</p>
+
+          <p>In you, I have found my best friend, my lover, and my partner in every adventure life throws our way. I am endlessly grateful for your love, your kindness, and the light you bring into my life. Your strength inspires me, your wisdom guides me, and your love fulfills me. Thank you for being you, for sharing your love with me, for inspiring me to accept myself, and for always being there for me. Every moment with you is a gift, and I cherish it deeply.</p>
+
+          <p>In the quiet moments, when we’re together, and the world fades away, I feel the true depth of my love for you. It’s in these serene moments that I realize how much you mean to me. Your presence is a gentle whisper to my heart, reminding me of the beauty that exists in this world. You have become my everything—my confidant, my joy, and the love of my life. My heart is entirely yours, filled with a sweet love that grows with each passing day.</p>
+
+          <i style="color: #ff0000">So, it seems like we won't be able to go out on February 14. Rather, will you be my Valentine for a lifetime instead?</i>
+          <br><br>
+          Your love, Simon.
+        </b>
+      </div>
     </div>
-    <script>
-        const envelope = document.querySelector('.envelope-wrapper');
-        envelope.addEventListener('click', () => {
-            envelope.classList.toggle('flap');
-        });
-    </script>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $("#messageState").on("change", () => {
+      $(".message").removeClass("openNor").removeClass("closeNor");
+      if ($("#messageState").is(":checked")) {
+        $(".message")
+          .removeClass("closed")
+          .removeClass("no-anim")
+          .addClass("openNor");
+        $(".heart")
+          .removeClass("closeHer")
+          .removeClass("openedHer")
+          .addClass("openHer");
+        $(".container").stop().animate({ backgroundColor: "#f48fb1" }, 2000);
+      } else {
+        $(".message").removeClass("no-anim").addClass("closeNor");
+        $(".heart")
+          .removeClass("openHer")
+          .removeClass("openedHer")
+          .addClass("closeHer");
+        $(".container").stop().animate({ backgroundColor: "#fce4ec" }, 2000);
+      }
+    });
+
+    $(".message").on("animationend", function () {
+      if ($(".message").hasClass("closeNor")) $(".message").addClass("closed");
+      $(".message")
+        .removeClass("openNor")
+        .removeClass("closeNor")
+        .addClass("no-anim");
+    });
+
+    $(".heart").on("animationend", function () {
+      if (!$(".heart").hasClass("closeHer"))
+        $(".heart").addClass("openedHer").addClass("beating");
+      else $(".heart").addClass("no-anim").removeClass("beating");
+      $(".heart").removeClass("openHer").removeClass("closeHer");
+    });
+  </script>
 </body>
 </html>
